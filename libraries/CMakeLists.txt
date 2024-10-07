@@ -167,3 +167,15 @@ target_include_directories(SNTP_FILES PUBLIC
         ${WIZNET_DIR}/Ethernet
         ${WIZNET_DIR}/Internet/SNTP
         )
+
+# SMTP
+add_library(SMTP_FILES STATIC)
+
+target_sources(SMTP_FILES PUBLIC
+        ${WIZNET_DIR}/../smtp/smtp.c
+        )
+
+target_include_directories(SMTP_FILES PUBLIC
+        ${WIZNET_DIR}/Ethernet
+        ${WIZNET_DIR}/../smtp
+        )
