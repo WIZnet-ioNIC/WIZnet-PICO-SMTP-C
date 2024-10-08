@@ -1,10 +1,10 @@
-# How to Test Loopback Example
+# How to Test SMTP Example
 
 
 
 ## Step 1: Prepare software
 
-The following serial terminal programs are required for Loopback example test, download and install from below links.
+The following serial terminal programs are required for SMTP example test, download and install from below links.
 
 - [**Tera Term**][link-tera_term]
 - [**Hercules**][link-hercules]
@@ -23,11 +23,11 @@ If you are using W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-P
 
 
 
-## Step 3: Setup Loopback Example
+## Step 3: Setup SMTP Example
 
-To test the Loopback example, minor settings shall be done in code.
+To test the SMTP example, minor settings shall be done in code.
 
-1. Setup SPI port and pin in 'w5x00_spi.h' in 'WIZnet-PICO-C/port/ioLibrary_Driver/' directory.
+1. Setup SPI port and pin in 'w5x00_spi.h' in 'WIZnet-PICO-SMTP-C/port/ioLibrary_Driver/' directory.
 
 Setup the SPI interface you use.
 - If you use the W5100S-EVB-Pico, W5500-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2,
@@ -43,7 +43,7 @@ Setup the SPI interface you use.
 #define PIN_RST 20
 ```
 
-If you want to test with the Loopback example using SPI DMA, uncomment USE_SPI_DMA.
+If you want to test with the SMTP example using SPI DMA, uncomment USE_SPI_DMA.
 
 ```cpp
 /* Use SPI DMA */
@@ -61,7 +61,7 @@ If you want to test with the Loopback example using SPI DMA, uncomment USE_SPI_D
 #define PIN_RST 25
 ```
 
-2. Setup network configuration such as IP in 'w5x00_loopback.c' which is the Loopback example in 'WIZnet-PICO-C/examples/loopback/' directory.
+2. Setup network configuration such as IP in 'w5x00_smtp.c' which is the SMTP example in 'WIZnet-PICO-SMTP-C/examples/smtp/' directory.
 
 Setup IP and other network settings to suit your network environment.
 
@@ -78,30 +78,84 @@ static wiz_NetInfo g_net_info =
 };
 ```
 
-3. Setup loopback configuration in 'w5x00_loopback.c' in 'WIZnet-PICO-C/examples/loopback/' directory.
+3. Setup smtp configuration in 'w5x00_smtp.c' in 'WIZnet-PICO-SMTP-C/examples/smtp/' directory.
 
 ```cpp
 /* Port */
-#define PORT_LOOPBACK 5000
+#define PORT_STMP 25
+...
+static uint8_t g_smtp_target_ip[4] = {192, 168, 11, 3};
 ```
 
+Setup smtp message configuration in 'smtp.c'.
+```cpp
+char hello[50] = "HELO localhost";                       
+char hello_reply[] = "250";                          
+char from[] = "admin@demo.org";                        
+char from_reply[] = "250";
+char to[] = "wiznet@demo.org"; 
+char to_reply[] = "250";
+char data_init[10] = "data";                 
+char data_reply[] = "354";                   
+char Cc[] = "wiznet@demo.org";             
+char subject[] = "Hello!WIZnet!";            
+char content[] = "Hello!WIZnet!";            
+char mime_reply[] = "250"; 
+char mailfrom[50] = "MAIL FROM:<>";
+char rcptto[50] = "rcpt to:<>";
+char mime[200] = "From:\r\n";
+char mime1[50] = "To:\r\n";
+char mime2[50] = "Cc:\r\n";
+char mime3[50] = "Subject:\r\n";
+char mime4[50] = "MIME-Version:1.0\r\nContent-Type:text/plain\r\n\r\n";
+char mime5[50] = "\r\n.\r\n";
+```
+
+## Step 4: Setup SMTP server
+
+1. Setup IIS
+   
+![image](https://github.com/user-attachments/assets/103a610e-bbbc-4307-9809-d9f08027ec29)
+
+2. Config SMTP mail
+   
+![image](https://github.com/user-attachments/assets/9813bca5-486c-45e5-9f75-d89777df1297)
+
+![image](https://github.com/user-attachments/assets/0700d476-3c0e-4d2a-9ba3-d43ed82ab12e)
 
 
-## Step 4: Build
+3. Download MailEnable
+   
+[**https://www.mailenable.com/download.asp**][link-mailenable]
 
-1. After completing the Loopback example configuration, click 'build' in the status bar at the bottom of Visual Studio Code or press the 'F7' button on the keyboard to build.
+![image](https://github.com/user-attachments/assets/8f606fc8-da68-4afb-b4c2-09ecebf25755)
 
-2. When the build is completed, 'w5x00_loopback.uf2' is generated in 'WIZnet-PICO-C/build/examples/loopback/' directory.
+ Check STMP port is listening 
+ 
+ ![image](https://github.com/user-attachments/assets/0a012dea-077d-4d99-8873-83805a3d196f)
+
+
+Add user in mailbox
+
+![image](https://github.com/user-attachments/assets/bb31a639-54dc-4473-8caa-318a8721e8f3)
 
 
 
-## Step 5: Upload and Run
+## Step 5: Build
+
+1. After completing the SMTP example configuration, click 'build' in the status bar at the bottom of Visual Studio Code or press the 'F7' button on the keyboard to build.
+
+2. When the build is completed, 'w5x00_smtp.uf2' is generated in 'WIZnet-PICO-SMTP-C/build/examples/smtp/' directory.
+
+
+
+## Step 6: Upload and Run
 
 1. While pressing the BOOTSEL button of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 power on the board, the USB mass storage 'RPI-RP2' is automatically mounted.
 
 ![][link-raspberry_pi_pico_usb_mass_storage]
 
-2. Drag and drop 'w5x00_loopback.uf2' onto the USB mass storage device 'RPI-RP2'.
+2. Drag and drop 'w5x00_smtp.uf2' onto the USB mass storage device 'RPI-RP2'.
 
 3. Connect to the serial COM port of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 with Tera Term.
 
@@ -109,19 +163,15 @@ static wiz_NetInfo g_net_info =
 
 4. Reset your board.
 
-5. If the Loopback example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2, you can see the network information of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 and the loopback server is open.
+5. If the SMTP example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2, you can see the network information of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 and the email is sent.
+   
+![image](https://github.com/user-attachments/assets/26c66cf5-1162-48d3-ae64-3cd1ad066f44)
 
-![][link-see_network_information_of_raspberry_pi_pico_and_open_loopback_server]
+6. You can check the email in the smtp server program.
 
-6. Connect to the open loopback server using Hercules TCP client. When connecting to the loopback server, you need to enter is the IP that was configured in Step 3, the port is 5000 by default.
+![image](https://github.com/user-attachments/assets/42d29694-5c75-4ab0-b7a0-7211a44fc628)
 
-![][link-connect_to_loopback_server_using_hercules_tcp_client_1]
 
-![][link-connect_to_loopback_server_using_hercules_tcp_client_2]
-
-7. Once connected if you send data to the loopback server, you should be able to receive back the sent message.
-
-![][link-receive_back_sent_message]
 
 
 
@@ -131,9 +181,8 @@ Link
 
 [link-tera_term]: https://osdn.net/projects/ttssh2/releases/
 [link-hercules]: https://www.hw-group.com/software/hercules-setup-utility
+[link-mailenable]: http://www.mailenable.com/download.asp
 [link-raspberry_pi_pico_usb_mass_storage]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/raspberry_pi_pico_usb_mass_storage.png
 [link-connect_to_serial_com_port]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/connect_to_serial_com_port.png
-[link-see_network_information_of_raspberry_pi_pico_and_open_loopback_server]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/see_network_information_of_raspberry_pi_pico_and_open_loopback_server.png
-[link-connect_to_loopback_server_using_hercules_tcp_client_1]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/connect_to_loopback_server_using_hercules_tcp_client_1.png
-[link-connect_to_loopback_server_using_hercules_tcp_client_2]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/connect_to_loopback_server_using_hercules_tcp_client_2.png
-[link-receive_back_sent_message]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/receive_back_sent_message.png
+
+
