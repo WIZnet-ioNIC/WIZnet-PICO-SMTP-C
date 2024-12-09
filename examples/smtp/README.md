@@ -114,31 +114,28 @@ char mime5[50] = "\r\n.\r\n";
 ## Step 4: Setup SMTP server
 
 1. Setup IIS
-   
-![image](https://github.com/user-attachments/assets/103a610e-bbbc-4307-9809-d9f08027ec29)
 
+![][link-setup_IIS]
+   
 2. Config SMTP mail
    
-![image](https://github.com/user-attachments/assets/9813bca5-486c-45e5-9f75-d89777df1297)
+![][link-config_smtp_mail_1]
 
-![image](https://github.com/user-attachments/assets/0700d476-3c0e-4d2a-9ba3-d43ed82ab12e)
-
+![][link-config_smtp_mail_2]
 
 3. Download MailEnable
    
 [**https://www.mailenable.com/download.asp**][link-mailenable]
 
-![image](https://github.com/user-attachments/assets/8f606fc8-da68-4afb-b4c2-09ecebf25755)
+![][link-download_mailenable_program]
 
  Check STMP port is listening 
  
- ![image](https://github.com/user-attachments/assets/0a012dea-077d-4d99-8873-83805a3d196f)
-
+![][link-check_smtp_port_listening]
 
 Add user in mailbox
 
-![image](https://github.com/user-attachments/assets/bb31a639-54dc-4473-8caa-318a8721e8f3)
-
+![][link-add_user_in_mailbox]
 
 
 ## Step 5: Build
@@ -164,13 +161,12 @@ Add user in mailbox
 4. Reset your board.
 
 5. If the SMTP example works normally on Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2, you can see the network information of Raspberry Pi Pico, W5100S-EVB-Pico, W5500-EVB-Pico, W55RP20-EVB-Pico, W5100S-EVB-Pico2 or W5500-EVB-Pico2 and the email is sent.
-   
-![image](https://github.com/user-attachments/assets/26c66cf5-1162-48d3-ae64-3cd1ad066f44)
+
+![][link-network_information]
 
 6. You can check the email in the smtp server program.
 
-![image](https://github.com/user-attachments/assets/42d29694-5c75-4ab0-b7a0-7211a44fc628)
-
+![][link-check_recv_email_in_program]
 
 
 
@@ -182,7 +178,15 @@ Link
 [link-tera_term]: https://osdn.net/projects/ttssh2/releases/
 [link-hercules]: https://www.hw-group.com/software/hercules-setup-utility
 [link-mailenable]: http://www.mailenable.com/download.asp
-[link-raspberry_pi_pico_usb_mass_storage]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/raspberry_pi_pico_usb_mass_storage.png
-[link-connect_to_serial_com_port]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-C/blob/main/static/images/loopback/connect_to_serial_com_port.png
 
+[link-setup_IIS]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/setup_IIS.png
+[link-config_smtp_mail_1]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/config_smtp_mail_1.png
+[link-config_smtp_mail_2]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/config_smtp_mail_2.png
+[link-download_mailenable_program]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/download_mailenable_program.png
+[link-check_smtp_port_listening]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/check_smtp_port_listening.png
+[link-add_user_in_mailbox]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/add_user_in_mailbox.png
+[link-raspberry_pi_pico_usb_mass_storage]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/raspberry_pi_pico_usb_mass_storage.png
+[link-connect_to_serial_com_port]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/connect_to_serial_com_port.png
+[link-network_information]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/network_information.png
+[link-check_recv_email_in_program]: https://github.com/WIZnet-ioNIC/WIZnet-PICO-SMTP-C/blob/main/static/images/smtp/check_recv_email_in_program.png
 
